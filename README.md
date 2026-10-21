@@ -1,9 +1,3 @@
-# resume-site
-
-My personal resume page, built with React and Vite. It's live here:
-**https://USERNAME.github.io/resume-site/**
-
-![Screenshot of the site](./screenshot.png)
 
 I wanted something simpler than a PDF that I could also use to practice React,
 so this is a small single-page app instead of a template from a site builder.
@@ -67,5 +61,5 @@ src/
 
 ## Contact
 
-If you'd like to talk, email me at you@example.com or find me on
-[LinkedIn](https://linkedin.com/in/username).
+If you'd like to talk, email me at main.stykharev@gmail.com or find me on
+[LinkedIn](https://www.linkedin.com/in/artem-stykharev-2b1131388/).
