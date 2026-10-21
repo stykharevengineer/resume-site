@@ -46,20 +46,24 @@ export default function App() {
           </Section>
         )}
 
-        <Section id="education" title={t.education}>
-          <Timeline items={education} />
-        </Section>
+        {education.length > 0 && (
+          <Section id="education" title={t.education}>
+            <Timeline items={education} />
+          </Section>
+        )}
 
-        <Section id="languages" title={t.languages}>
-          <ul className="langs">
-            {languages.map((l) => (
-              <li key={l.name.en ?? l.name}>
-                <span>{tr(l.name)}</span>
-                <span className="muted">{tr(l.level)}</span>
-              </li>
-            ))}
-          </ul>
-        </Section>
+        {languages.length > 0 && (
+          <Section id="languages" title={t.languages}>
+            <ul className="langs">
+              {languages.map((l) => (
+                <li key={l.name.en ?? l.name}>
+                  <span>{tr(l.name)}</span>
+                  <span className="muted">{tr(l.level)}</span>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
 
         <footer className="footer">
           <span>

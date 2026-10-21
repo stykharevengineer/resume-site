@@ -2,20 +2,23 @@
 //
 // Any text field can be a plain string (same in every language)
 // or an object with a version per language: { en: '...', ru: '...', sk: '...' }
+//
+// Empty sections (experience, education, languages) are hidden automatically.
 
 export const profile = {
-  name: { en: 'Name Surname', ru: 'Имя Фамилия', sk: 'Meno Priezvisko' },
+  name: { en: 'Artem Stykharev', ru: 'Артём Стихарёв', sk: 'Artem Stykharev' },
   role: {
-    en: 'Frontend Developer (React)',
-    ru: 'Frontend-разработчик (React)',
-    sk: 'Frontend vývojár (React)',
+    en: 'Junior Backend Developer · Java / Spring · C# / .NET',
+    ru: 'Junior Backend-разработчик · Java / Spring · C# / .NET',
+    sk: 'Junior Backend vývojár · Java / Spring · C# / .NET',
   },
   location: { en: 'Žilina, Slovakia', ru: 'Жилина, Словакия', sk: 'Žilina, Slovensko' },
-  photo: '', // e.g. './photo.jpg' in public/. Leave empty to show initials
+  // Put the file in public/. If it's missing, initials are shown instead
+  photo: './photo.jpg',
   about: {
-    en: 'I build interfaces with React and TypeScript. I care about clean code, getting the details right, and products that are pleasant to use. Looking for a Junior / Middle Frontend Developer position.',
-    ru: 'Пишу интерфейсы на React и TypeScript. Люблю аккуратную вёрстку, понятный код и когда продукт приятно использовать. Ищу позицию Junior / Middle Frontend-разработчика.',
-    sk: 'Tvorím rozhrania v Reacte a TypeScripte. Záleží mi na čistom kóde, detailoch a produktoch, ktoré sa príjemne používajú. Hľadám pozíciu Junior / Middle Frontend vývojára.',
+    en: "I'm a third-year Informatics student at the University of Žilina and a backend developer. I work equally with Java / Spring Boot and C# / .NET, use PostgreSQL / MySQL for data, and package services with Docker. I've also worked with Python / Django. On the frontend I know enough React and TypeScript to build a UI for my own services, like this site. I'm looking for my first commercial role as a Junior Backend Developer on Java or .NET.",
+    ru: 'Я студент 3 курса информатики в Жилинском университете и backend-разработчик. Одинаково работаю с Java / Spring Boot и C# / .NET, для данных использую PostgreSQL и MySQL, сервисы упаковываю в Docker. Также работал с Python / Django. Во фронтенде знаю React и TypeScript на уровне, чтобы самому сделать интерфейс к своему сервису — например, этот сайт. Ищу первую коммерческую позицию Junior Backend-разработчика на Java или .NET.',
+    sk: 'Som študent 3. ročníka informatiky na Žilinskej univerzite a backend vývojár. Rovnako pracujem s Java / Spring Boot aj C# / .NET, na dáta používam PostgreSQL / MySQL a služby balím do Dockeru. Pracoval som aj s Python / Django. Na frontende ovládam React a TypeScript natoľko, aby som si vedel sám spraviť rozhranie k vlastnej službe, napríklad túto stránku. Hľadám svoju prvú komerčnú pozíciu Junior Backend vývojára v Jave alebo .NET.',
   },
   openToWork: true,
   // e.g. './cv.pdf' in public/, or one file per language: { en: './cv-en.pdf', ... }
@@ -23,105 +26,99 @@ export const profile = {
   resumePdf: '',
 }
 
+// icon: 'github' | 'linkedin' | 'email' (optional)
+// Email example: { label: 'Email', icon: 'email', value: 'me@mail.com', href: 'mailto:me@mail.com' }
 export const contacts = [
-  { label: 'Email', value: 'you@example.com', href: 'mailto:you@example.com' },
-  { label: 'GitHub', value: 'github.com/username', href: 'https://github.com/username' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/username', href: 'https://linkedin.com/in/username' },
-  { label: 'Telegram', value: '@username', href: 'https://t.me/username' },
+  {
+    label: 'GitHub',
+    icon: 'github',
+    value: 'github.com/stykharevengineer',
+    href: 'https://github.com/stykharevengineer',
+  },
+  {
+    label: 'LinkedIn',
+    icon: 'linkedin',
+    value: 'linkedin.com/in/artem-stykharev',
+    href: 'https://www.linkedin.com/in/artem-stykharev-2b1131388/',
+  },
 ]
 
 export const skills = [
   {
-    group: { en: 'Core', ru: 'Основное', sk: 'Základ' },
-    items: ['JavaScript (ES2023)', 'TypeScript', 'React', 'HTML5', 'CSS3 / SCSS'],
+    group: { en: 'Java', ru: 'Java', sk: 'Java' },
+    items: ['Java', 'Spring', 'Spring Boot', 'Maven', 'Gradle'],
   },
   {
-    group: { en: 'Ecosystem', ru: 'Экосистема', sk: 'Ekosystém' },
-    items: ['React Router', 'Redux Toolkit', 'TanStack Query', 'Vite', 'Next.js'],
+    group: { en: 'C# / .NET', ru: 'C# / .NET', sk: 'C# / .NET' },
+    items: ['C#', '.NET'],
   },
   {
-    group: { en: 'Tools', ru: 'Инструменты', sk: 'Nástroje' },
-    items: ['Git / GitHub', 'Figma', 'REST API', 'Jest', 'npm'],
+    group: {
+      en: 'Databases, tools & other',
+      ru: 'Базы данных, инструменты и другое',
+      sk: 'Databázy, nástroje a iné',
+    },
+    items: ['SQL', 'PostgreSQL', 'MySQL', 'Docker', 'Git', 'Python', 'Django'],
+  },
+  {
+    group: { en: 'Frontend (basics)', ru: 'Frontend (базово)', sk: 'Frontend (základy)' },
+    items: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'HTML5', 'CSS'],
   },
 ]
 
+// demo – live site, code – repository, api – Swagger / API docs (all optional)
+// inProgress: true shows an "In progress" label
 export const projects = [
+  {
+    title: '33 RPM',
+    description: {
+      en: 'Semester project for the VAII course at the University of Žilina. A vinyl record catalog with search, genre filters and rated reviews, plus separate roles for users and admins. AJAX search, validation on both client and server, runs in Docker with sample data.',
+      ru: 'Семестровый проект по курсу VAII в Жилинском университете. Каталог виниловых пластинок: поиск, фильтр по жанрам, отзывы с оценками, роли пользователя и администратора. AJAX-поиск, валидация на клиенте и сервере, запуск в Docker с тестовыми данными.',
+      sk: 'Semestrálny projekt z predmetu VAII na Žilinskej univerzite. Katalóg vinylových platní s vyhľadávaním, filtrom podľa žánru a recenziami s hodnotením, s rolami používateľa a administrátora. AJAX vyhľadávanie, validácia na klientovi aj serveri, spúšťanie v Dockeri s ukážkovými dátami.',
+    },
+    tech: ['PHP', 'JavaScript', 'SQL', 'Docker'],
+    demo: '',
+    code: 'https://github.com/stykharevengineer/vaii-semestralka',
+    api: '',
+    inProgress: true,
+  },
   {
     title: { en: 'Resume website', ru: 'Сайт-резюме', sk: 'Webový životopis' },
     description: {
-      en: 'This site. React + Vite, three languages, responsive layout, deployed to GitHub Pages with GitHub Actions.',
-      ru: 'Этот сайт. React + Vite, три языка, адаптивная вёрстка, автодеплой на GitHub Pages через GitHub Actions.',
-      sk: 'Táto stránka. React + Vite, tri jazyky, responzívny dizajn, automatické nasadenie na GitHub Pages cez GitHub Actions.',
+      en: 'This site. A frontend side project: React + Vite, three languages, responsive layout, deployed to GitHub Pages with GitHub Actions.',
+      ru: 'Этот сайт. Проект на фронтенде: React + Vite, три языка, адаптивная вёрстка, автодеплой на GitHub Pages через GitHub Actions.',
+      sk: 'Táto stránka. Frontendový projekt: React + Vite, tri jazyky, responzívny dizajn, automatické nasadenie na GitHub Pages cez GitHub Actions.',
     },
     tech: ['React', 'Vite', 'CSS', 'GitHub Actions'],
-    demo: 'https://username.github.io/resume-site/',
-    code: 'https://github.com/username/resume-site',
-  },
-  {
-    title: { en: 'Todo app', ru: 'Todo-приложение', sk: 'Todo aplikácia' },
-    description: {
-      en: 'Tasks with filters, drag & drop, and saving to localStorage.',
-      ru: 'Задачи с фильтрами, drag & drop и сохранением в localStorage.',
-      sk: 'Úlohy s filtrami, drag & drop a ukladaním do localStorage.',
-    },
-    tech: ['React', 'TypeScript', 'Redux Toolkit'],
-    demo: '',
-    code: 'https://github.com/username/todo-app',
-  },
-  {
-    title: { en: 'Weather forecast', ru: 'Прогноз погоды', sk: 'Predpoveď počasia' },
-    description: {
-      en: 'City search and a 5-day forecast from a public API, with error and loading states.',
-      ru: 'Поиск города, прогноз на 5 дней через открытый API, обработка ошибок и состояния загрузки.',
-      sk: 'Vyhľadávanie mesta a 5-dňová predpoveď z verejného API vrátane chybových stavov a načítavania.',
-    },
-    tech: ['React', 'REST API', 'TanStack Query'],
-    demo: '',
-    code: 'https://github.com/username/weather-app',
+    demo: 'https://stykharevengineer.github.io/resume-site/',
+    code: 'https://github.com/stykharevengineer/resume-site',
+    api: '',
   },
 ]
 
-export const experience = [
-  {
-    role: {
-      en: 'Frontend Developer (Intern)',
-      ru: 'Frontend-разработчик (стажёр)',
-      sk: 'Frontend vývojár (stážista)',
-    },
-    company: { en: 'Company', ru: 'Компания', sk: 'Spoločnosť' },
-    period: { en: '2025 — present', ru: '2025 — сейчас', sk: '2025 — súčasnosť' },
-    points: [
-      {
-        en: 'Built React components from Figma designs',
-        ru: 'Вёрстка и разработка компонентов на React по макетам из Figma',
-        sk: 'Tvorba React komponentov podľa návrhov vo Figme',
-      },
-      {
-        en: 'Integrated REST APIs, worked on forms and validation',
-        ru: 'Интеграция с REST API, работа с формами и валидацией',
-        sk: 'Integrácia REST API, práca s formulármi a validáciou',
-      },
-    ],
-  },
-]
+export const experience = []
 
 export const education = [
   {
     title: {
-      en: 'University / course name',
-      ru: 'Название университета / курса',
-      sk: 'Názov univerzity / kurzu',
+      en: 'University of Žilina',
+      ru: 'Жилинский университет',
+      sk: 'Žilinská univerzita v Žiline',
     },
-    subtitle: { en: 'Field of study', ru: 'Специальность', sk: 'Študijný odbor' },
-    period: '2021 — 2025',
+    subtitle: {
+      en: "Bachelor's in Informatics · Faculty of Management Science and Informatics · 3rd year",
+      ru: 'Бакалавриат, информатика · Факультет управления и информатики · 3 курс',
+      sk: 'Bakalárske štúdium, Informatika · Fakulta riadenia a informatiky · 3. ročník',
+    },
+    period: { en: '2024 — present', ru: '2024 — сейчас', sk: '2024 — súčasnosť' },
   },
 ]
 
+const native = { en: 'native', ru: 'родной', sk: 'materinský' }
+
 export const languages = [
-  {
-    name: { en: 'Russian', ru: 'Русский', sk: 'Ruština' },
-    level: { en: 'native', ru: 'родной', sk: 'materinský' },
-  },
+  { name: { en: 'Ukrainian', ru: 'Украинский', sk: 'Ukrajinčina' }, level: native },
+  { name: { en: 'Russian', ru: 'Русский', sk: 'Ruština' }, level: native },
   { name: { en: 'English', ru: 'Английский', sk: 'Angličtina' }, level: 'B2' },
-  { name: { en: 'Slovak', ru: 'Словацкий', sk: 'Slovenčina' }, level: 'B1' },
+  { name: { en: 'Slovak', ru: 'Словацкий', sk: 'Slovenčina' }, level: 'B2' },
 ]

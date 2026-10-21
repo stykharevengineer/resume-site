@@ -7,8 +7,11 @@ export default function Projects() {
   return (
     <div className="projects">
       {projects.map((p) => (
-        <article key={p.code || p.title.en} className="card">
-          <h3>{tr(p.title)}</h3>
+        <article key={p.code || tr(p.title)} className="card">
+          <div className="card-head">
+            <h3>{tr(p.title)}</h3>
+            {p.inProgress && <span className="status">{t.inProgress}</span>}
+          </div>
           <p>{tr(p.description)}</p>
           <ul className="tags small">
             {p.tech.map((tech) => (
@@ -24,6 +27,11 @@ export default function Projects() {
             {p.code && (
               <a href={p.code} target="_blank" rel="noreferrer">
                 {t.code} ↗
+              </a>
+            )}
+            {p.api && (
+              <a href={p.api} target="_blank" rel="noreferrer">
+                {t.api} ↗
               </a>
             )}
           </div>
