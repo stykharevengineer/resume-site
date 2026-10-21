@@ -12,21 +12,24 @@ a template from a site builder. No UI libraries, just components and plain CSS.
 
 ## What's inside
 
-All the content (contacts, skills, projects) lives in `src/data.js`. The
-components just read from it, so updating the resume means editing one file
-and pushing. Treating the content as data and keeping it out of the markup
-felt natural coming from the backend side.
+All the content (contacts, skills, projects, the text in the terminal aside)
+lives in `src/data.js`. The components just read from it, so updating the
+resume means editing one file and pushing. Treating the content as data and
+keeping it out of the markup felt natural coming from the backend side.
 
-A few other things I added along the way:
+Things I added along the way:
 
-- Three languages: English, Russian and Slovak. There's a switch in the top
-  corner, and the choice ends up in the URL, so
+- Three languages: English, Russian and Slovak, switchable from the menu.
+  The choice ends up in the URL, so
   `https://stykharevengineer.github.io/resume-site/?lang=sk` always opens in
-  Slovak. There's no i18n library here; a text field in `data.js` is either a
-  plain string or `{ en, ru, sk }`, and a small context picks the right one.
-- Dark mode. It follows your system setting by default and remembers if you switch it.
-- It works on phones. The layout collapses to one column under 640px.
-- Print styles, so Ctrl+P gives you a clean page you can save as a PDF.
+  Slovak. No i18n library; a text field in `data.js` is either a plain string
+  or `{ en, ru, sk }`, and a small context picks the right one.
+- A fake terminal in the hero that "curls" my profile and prints it as JSON.
+- A dot field on a canvas behind everything that ripples and moves away from
+  the cursor, plus a few smaller effects: the name rising letter by letter,
+  the About text lighting up as you scroll, tilting project cards.
+- All animations switch off if your system asks for reduced motion.
+- Dark by default, with a light theme in the menu.
 - Deploys happen on their own. Every push to `main` runs a GitHub Actions
   workflow that builds the site and publishes it to GitHub Pages.
 
@@ -49,17 +52,21 @@ public/
 src/
   data.js            resume content in all three languages
   i18n.jsx           language context and interface strings
-  App.jsx            puts the sections together
+  motion.js          small hooks for scroll reveal and tilt effects
   index.css          styles and color themes
+  App.jsx            puts the sections together
   components/
-    Header.jsx       photo, name, role, contacts
-    Icon.jsx         inline SVG icons for the contact links
-    Section.jsx      section wrapper
-    Skills.jsx
+    Background.jsx   canvas dot field, glow, grain
+    Nav.jsx          menu, language switch, theme, scroll progress
+    Hero.jsx         photo, name, typewriter line, buttons
+    Terminal.jsx     the JSON "API response"
+    About.jsx        about text and number tiles
+    Skills.jsx       marquee and skill groups
     Projects.jsx
-    Timeline.jsx     used for both experience and education
-    Toolbar.jsx      language switch + theme toggle
-    ThemeToggle.jsx
+    Education.jsx    university card and languages with a CEFR scale
+    Contact.jsx
+    Reveal.jsx       fades things in on scroll
+    Icon.jsx         inline SVG icons
 .github/workflows/
   deploy.yml         build + deploy to GitHub Pages
 ```
@@ -71,4 +78,6 @@ repositories: [github.com/stykharevengineer](https://github.com/stykharevenginee
 
 ## Contact
 
-Feel free to reach out on [LinkedIn](https://www.linkedin.com/in/artem-stykharev-2b1131388/).
+Email me at main.stykharev@gmail.com, or find me on
+[LinkedIn](https://www.linkedin.com/in/artem-stykharev-2b1131388/) and
+[Telegram](https://t.me/stykharev).

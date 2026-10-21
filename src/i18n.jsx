@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 export const LANGS = [
   { code: 'en', label: 'EN' },
@@ -9,52 +9,76 @@ export const LANGS = [
 // Interface text that isn't part of the resume itself
 const ui = {
   en: {
+    home: 'Home',
     about: 'About',
     skills: 'Skills',
     projects: 'Projects',
-    experience: 'Experience',
-    education: 'Education',
-    languages: 'Languages',
+    contact: 'Contact',
+    education: 'Education & languages',
+    eduCard: 'Education',
+    langCard: 'Languages',
+    native: 'native',
+    yearOf: (y, n) => `Year ${y} of ${n}`,
     openToWork: 'Open to work',
-    downloadPdf: 'Download PDF',
+    inProgress: 'In progress',
+    live: 'Live',
     demo: 'Demo',
     code: 'Code',
     api: 'API docs',
-    inProgress: 'In progress',
+    copy: 'Copy',
+    copied: 'Copied ✓',
+    copyEmail: 'Copy email',
     toggleTheme: 'Toggle theme',
-    switchLang: 'Language',
+    sections: 'Sections',
+    footer: 'Built with React + Vite · Žilina, SK',
   },
   ru: {
+    home: 'Главная',
     about: 'Обо мне',
     skills: 'Навыки',
     projects: 'Проекты',
-    experience: 'Опыт',
-    education: 'Образование',
-    languages: 'Языки',
+    contact: 'Контакты',
+    education: 'Образование и языки',
+    eduCard: 'Образование',
+    langCard: 'Языки',
+    native: 'родной',
+    yearOf: (y, n) => `${y} курс из ${n}`,
     openToWork: 'Открыт к предложениям',
-    downloadPdf: 'Скачать PDF',
+    inProgress: 'В разработке',
+    live: 'Онлайн',
     demo: 'Демо',
     code: 'Код',
-    api: 'Документация API',
-    inProgress: 'В разработке',
+    api: 'API',
+    copy: 'Копировать',
+    copied: 'Скопировано ✓',
+    copyEmail: 'Скопировать email',
     toggleTheme: 'Переключить тему',
-    switchLang: 'Язык',
+    sections: 'Разделы',
+    footer: 'Сделано на React + Vite · Жилина, SK',
   },
   sk: {
+    home: 'Úvod',
     about: 'O mne',
     skills: 'Zručnosti',
     projects: 'Projekty',
-    experience: 'Skúsenosti',
-    education: 'Vzdelanie',
-    languages: 'Jazyky',
+    contact: 'Kontakt',
+    education: 'Vzdelanie a jazyky',
+    eduCard: 'Vzdelanie',
+    langCard: 'Jazyky',
+    native: 'materinský',
+    yearOf: (y, n) => `${y}. ročník z ${n}`,
     openToWork: 'Otvorený novým ponukám',
-    downloadPdf: 'Stiahnuť PDF',
+    inProgress: 'Vo vývoji',
+    live: 'Online',
     demo: 'Demo',
     code: 'Kód',
-    api: 'Dokumentácia API',
-    inProgress: 'Vo vývoji',
+    api: 'API',
+    copy: 'Kopírovať',
+    copied: 'Skopírované ✓',
+    copyEmail: 'Skopírovať email',
     toggleTheme: 'Prepnúť tému',
-    switchLang: 'Jazyk',
+    sections: 'Sekcie',
+    footer: 'Postavené na React + Vite · Žilina, SK',
   },
 }
 
@@ -95,13 +119,18 @@ export function LangProvider({ children }) {
     window.history.replaceState(null, '', url)
   }, [lang])
 
-  // Text fields in data.js are either plain strings or { en, ru, sk }
-  const tr = (value) =>
-    value && typeof value === 'object' && !Array.isArray(value) ? value[lang] ?? value.en : value
-
-  return (
-    <LangContext.Provider value={{ lang, setLang, t: ui[lang], tr }}>{children}</LangContext.Provider>
+  // Text fields in data.js are either plain values or { en, ru, sk }
+  const tr = useCallback(
+    (value) =>
+      value && typeof value === 'object' && !Array.isArray(value) && 'en' in value
+        ? value[lang] ?? value.en
+        : value,
+    [lang]
   )
+
+  const value = useMemo(() => ({ lang, setLang, t: ui[lang], tr }), [lang, tr])
+
+  return <LangContext.Provider value={value}>{children}</LangContext.Provider>
 }
 
 export function useLang() {
